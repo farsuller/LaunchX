@@ -1,0 +1,9 @@
+package com.solodev.launchx.presentation.screen.home
+
+import com.solodev.launchx.domain.model.Rocket
+
+data class HomeState(
+    val isLoading: Boolean = true,
+    val rockets : List<Rocket>? = null,
+    val errorMessage : String? = null
+)
