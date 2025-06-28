@@ -1,9 +1,10 @@
 package com.solodev.launchx.di
 
 import com.solodev.launchx.data.remote.SpaceXApi
-import com.solodev.launchx.data.repository.RocketsRepositoryImpl
-import com.solodev.launchx.domain.repository.RocketsRepository
-import com.solodev.launchx.domain.usecase.GetRocketUseCase
+import com.solodev.launchx.data.repository.LaunchXRepositoryImpl
+import com.solodev.launchx.domain.repository.LaunchXRepository
+import com.solodev.launchx.domain.usecase.GetCrews
+import com.solodev.launchx.domain.usecase.LaunchXUseCase
 import com.solodev.launchx.domain.usecase.GetRockets
 import com.solodev.launchx.presentation.screen.home.HomeViewModel
 import io.ktor.client.HttpClient
@@ -40,12 +41,13 @@ val appModule = module {
     }
 
     single<SpaceXApi> { SpaceXApi(get()) }
-    single<RocketsRepository> { RocketsRepositoryImpl( get()) }
+    single<LaunchXRepository> { LaunchXRepositoryImpl( get()) }
     single { GetRockets( get()) }
+    single { GetCrews(get()) }
 
-    single { GetRocketUseCase(get()) }
+    single { LaunchXUseCase(get(), get()) }
     factory {
-        HomeViewModel( rocketUseCase = get())
+        HomeViewModel( launchXUseCase = get())
     }
 }
 

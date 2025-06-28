@@ -3,7 +3,7 @@ package com.solodev.launchx.presentation.screen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solodev.launchx.data.RequestState
-import com.solodev.launchx.domain.usecase.GetRocketUseCase
+import com.solodev.launchx.domain.usecase.LaunchXUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val rocketUseCase: GetRocketUseCase
+    private val launchXUseCase: LaunchXUseCase
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(HomeState())
@@ -22,10 +22,26 @@ class HomeViewModel(
 
     fun requestApi() {
         getRockets()
+        getCrews()
+    }
+
+    private fun getCrews() = viewModelScope.launch {
+        launchXUseCase
+            .getCrews
+            .invoke()
+            .collectLatest { response ->
+                when (response) {
+                    is RequestState.Success -> {
+                        _homeState.update { it.copy(crews = response.result) }
+                    }
+                    is RequestState.Error -> {}
+                }
+
+            }
     }
 
     private fun getRockets() = viewModelScope.launch {
-        rocketUseCase
+        launchXUseCase
             .getRockets
             .invoke()
             .onStart { _homeState.update { it.copy(isLoading = true) } }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +32,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Rocket
+import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.EngineDetailTable
 import com.solodev.launchx.presentation.component.MeasureDetailTable
 import com.solodev.launchx.presentation.component.StageDetailTable
@@ -102,14 +105,15 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                AsyncImage(
+                                SubcomposeAsyncImage(
                                     modifier = Modifier
                                         .size(130.dp)
                                         .padding(10.dp)
                                         .clip(CircleShape),
                                     model = rocket?.flickrImages?.firstOrNull(),
                                     contentDescription = "Rocket Image",
-                                    contentScale = ContentScale.Crop
+                                    contentScale = ContentScale.Crop,
+                                    loading = { BoxCircularIndicator() }
                                 )
 
                                 Column(
@@ -146,14 +150,15 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
                                 horizontalArrangement = Arrangement.spacedBy(7.dp)
                             ) {
                                 items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
-                                    AsyncImage(
+                                    SubcomposeAsyncImage (
                                         modifier = Modifier
                                             .size(150.dp)
                                             .padding(10.dp)
                                             .clip(CircleShape),
                                         model = image,
                                         contentDescription = "Rocket Image",
-                                        contentScale = ContentScale.Crop
+                                        contentScale = ContentScale.Crop,
+                                        loading = { BoxCircularIndicator() }
                                     )
                                 }
                             }
