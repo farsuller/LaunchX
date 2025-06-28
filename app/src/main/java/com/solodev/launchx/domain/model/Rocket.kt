@@ -17,6 +17,9 @@ data class Rocket(
 
     val engines: Engines? = null,
 
+    @SerialName("landing_legs")
+    val landingLegs: LandingLegs? = null,
+
     @SerialName("flickr_images")
     val flickrImages: List<String>? = null,
 
@@ -156,3 +159,8 @@ data class Isp(
     val vacuum : Long? = null
 )
 
+@Serializable
+data class LandingLegs(
+    val number : Long? = null,
+    val material : String? = null
+)

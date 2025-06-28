@@ -1,14 +1,18 @@
 package com.solodev.launchx.presentation.screen.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,87 +21,153 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.solodev.launchx.domain.model.Rocket
+import com.solodev.launchx.presentation.component.EngineDetailTable
+import com.solodev.launchx.presentation.component.MeasureDetailTable
+import com.solodev.launchx.presentation.component.StageDetailTable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit){
+fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Rocket Detail") },
-                navigationIcon = {
-                    IconButton(onClick = onBackButtonClick) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-
-        LazyColumn(
-            modifier = Modifier
-                .padding(
-                    top = paddingValues.calculateTopPadding(),
-                    bottom = paddingValues.calculateBottomPadding()
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF30495E),
+                        Color(0xFF040608),
+                    ),
                 )
-        ) {
-            item {
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 6.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        AsyncImage(
-                            model = rocket?.flickrImages?.firstOrNull(),
-                            contentDescription = "Rocket Image",
-                            modifier = Modifier.size(140.dp),
-                            contentScale = ContentScale.Crop
-                        )
-
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.Top
-                        ) {
-                            Text(text = "Rocket Name: ${rocket?.name}")
-                            Text(text = "Rocket Description: ${rocket?.description}")
+            )
+    ) {
+        Scaffold(
+            containerColor = Color.Transparent,
+            modifier = Modifier
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFF213440),
+                            Color(0xFF040608),
+                        ),
+                    ),
+                )
+                .fillMaxSize(),
+            topBar = {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
+                    title = { Text(text = "${rocket?.name}") },
+                    navigationIcon = {
+                        IconButton(onClick = onBackButtonClick) {
+                            Icon(
+                                modifier = Modifier.size(34.dp),
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                                contentDescription = "Back"
+                            )
                         }
                     }
+                )
+            }
+        ) { paddingValues ->
 
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(7.dp)
-                    ) {
-                        items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
-                            AsyncImage(
-                                model = image,
-                                contentDescription = "Rocket Image",
-                                modifier = Modifier.size(140.dp),
-                                contentScale = ContentScale.Crop
-                            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        top = paddingValues.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
+                    )
+            )
+            {
+                LazyColumn(modifier = Modifier) {
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AsyncImage(
+                                    modifier = Modifier
+                                        .size(130.dp)
+                                        .padding(10.dp)
+                                        .clip(CircleShape),
+                                    model = rocket?.flickrImages?.firstOrNull(),
+                                    contentDescription = "Rocket Image",
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalAlignment = Alignment.Start,
+                                    verticalArrangement = Arrangement.Top
+                                ) {
+                                    Text(
+                                        text = "Rocket Name: ${rocket?.name}",
+                                        color = Color.White,
+                                    )
+                                    Text(
+                                        text = "First Flight: ${rocket?.firstFlight}",
+                                        color = Color.White,
+                                    )
+                                    Text(
+                                        text = "Country: ${rocket?.country}",
+                                        color = Color.White,
+                                    )
+                                    Text(
+                                        text = "Company: ${rocket?.company}",
+                                        color = Color.White,
+                                    )
+                                }
+                            }
+
+                            Text(
+                                modifier = Modifier.padding(horizontal = 10.dp),
+                                text = "Rocket Type: ${rocket?.description}",
+                                color = Color.White,)
+
+                            LazyRow(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(7.dp)
+                            ) {
+                                items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
+                                    AsyncImage(
+                                        modifier = Modifier
+                                            .size(150.dp)
+                                            .padding(10.dp)
+                                            .clip(CircleShape),
+                                        model = image,
+                                        contentDescription = "Rocket Image",
+                                        contentScale = ContentScale.Crop
+                                    )
+                                }
+                            }
+
+
+                            StageDetailTable(rocket = rocket)
+
+                            EngineDetailTable(rocket = rocket)
+
+                            MeasureDetailTable(rocket = rocket)
                         }
                     }
                 }
             }
         }
-
     }
-
-
 }
