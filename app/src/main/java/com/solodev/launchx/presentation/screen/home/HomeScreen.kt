@@ -96,33 +96,50 @@ fun HomeScreen(
 
                             CrewsContent(homeState = homeState)
 
-                            val lanPadSize = homeState.landpads?.size ?: 0
-                            val rowCount = (lanPadSize + 1) / 2 // assuming 2 columns
-                            val itemHeight = 180.dp
-                            val totalHeight = itemHeight * rowCount
-
-                            LazyVerticalGrid(
-                                columns = GridCells.Fixed(2),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(totalHeight)
-                                    .padding(horizontal = 4.dp)
-                                    .padding(top = 10.dp),
-                                contentPadding = PaddingValues(top = 10.dp)
-                            ) {
-                                items(homeState.landpads ?: emptyList()) { landpad ->
-
-                                    LandPadCard(
-                                        landpad = landpad,
-                                        onCardLandPadClick = onCardLandPadClick
-                                    )
-                                }
-                            }
-
+                            LandPadsContent(
+                                homeState = homeState,
+                                onCardLandPadClick = onCardLandPadClick
+                            )
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun LandPadsContent(
+    homeState: HomeState,
+    onCardLandPadClick: (String) -> Unit
+) {
+    val lanPadSize = homeState.landpads?.size ?: 0
+    val rowCount = (lanPadSize + 1) / 2 // assuming 2 columns
+    val itemHeight = 180.dp
+    val totalHeight = itemHeight * rowCount
+
+    Text(
+        modifier = Modifier.padding(8.dp),
+        text = "LandPads",
+        fontSize = 25.sp,
+        color = Color.White
+    )
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(totalHeight)
+            .padding(horizontal = 4.dp)
+            .padding(top = 10.dp),
+        contentPadding = PaddingValues(top = 10.dp)
+    ) {
+        items(homeState.landpads ?: emptyList()) { landpad ->
+
+            LandPadCard(
+                landpad = landpad,
+                onCardLandPadClick = onCardLandPadClick
+            )
         }
     }
 }
