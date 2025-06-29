@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.solodev.launchx.di.initializeKoin
+import com.solodev.launchx.presentation.screen.detail.LandPadDetailScreen
 import com.solodev.launchx.presentation.screen.detail.RocketDetailScreen
 import com.solodev.launchx.presentation.screen.home.HomeScreen
 import com.solodev.launchx.presentation.screen.home.HomeViewModel
@@ -44,6 +45,9 @@ class MainActivity : ComponentActivity() {
                             homeState = homeState,
                             onCardRocketClick = {
                                 navController.navigate(Route.RocketDetail(it))
+                            },
+                            onCardLandPadClick = {
+                                navController.navigate(Route.LandPadsDetail(it))
                             }
                         )
                     }
@@ -57,8 +61,18 @@ class MainActivity : ComponentActivity() {
                                 navController.navigateUp()
                             })
                     }
-                }
 
+                    composable<Route.LandPadsDetail> { args ->
+                        val argsDetail = args.toRoute<Route.LandPadsDetail>()
+                        val landpad = homeState.landpads?.find { it.id == argsDetail.id }
+
+                        LandPadDetailScreen(
+                            landpad = landpad,
+                            onBackButtonClick = {
+                                navController.navigateUp()
+                            })
+                    }
+                }
             }
         }
     }

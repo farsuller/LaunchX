@@ -23,6 +23,21 @@ class HomeViewModel(
     fun requestApi() {
         getRockets()
         getCrews()
+        getLandPads()
+    }
+
+    private fun getLandPads() = viewModelScope.launch {
+        launchXUseCase
+            .getLandPads
+            .invoke()
+            .collectLatest { response ->
+                when (response) {
+                    is RequestState.Success -> {
+                        _homeState.update { it.copy(landpads = response.result) }
+                    }
+                    is RequestState.Error -> {}
+                }
+            }
     }
 
     private fun getCrews() = viewModelScope.launch {

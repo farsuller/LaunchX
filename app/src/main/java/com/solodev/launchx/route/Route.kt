@@ -11,4 +11,7 @@ sealed interface Route {
     @Serializable
     data class RocketDetail(val id : String):Route
 
+    @Serializable
+    data class LandPadsDetail(val id : String):Route
+
 }

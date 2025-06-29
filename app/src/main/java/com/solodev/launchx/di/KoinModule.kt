@@ -4,6 +4,7 @@ import com.solodev.launchx.data.remote.SpaceXApi
 import com.solodev.launchx.data.repository.LaunchXRepositoryImpl
 import com.solodev.launchx.domain.repository.LaunchXRepository
 import com.solodev.launchx.domain.usecase.GetCrews
+import com.solodev.launchx.domain.usecase.GetLandPads
 import com.solodev.launchx.domain.usecase.LaunchXUseCase
 import com.solodev.launchx.domain.usecase.GetRockets
 import com.solodev.launchx.presentation.screen.home.HomeViewModel
@@ -44,8 +45,9 @@ val appModule = module {
     single<LaunchXRepository> { LaunchXRepositoryImpl( get()) }
     single { GetRockets( get()) }
     single { GetCrews(get()) }
+    single { GetLandPads(get()) }
 
-    single { LaunchXUseCase(get(), get()) }
+    single { LaunchXUseCase(get(), get(), get()) }
     factory {
         HomeViewModel( launchXUseCase = get())
     }

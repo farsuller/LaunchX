@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.SubcomposeAsyncImage
+import com.solodev.launchx.domain.model.Landpad
 import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.EngineDetailTable
@@ -41,7 +42,7 @@ import com.solodev.launchx.presentation.component.StageDetailTable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
+fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
 
     Box(
         Modifier
@@ -70,7 +71,7 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                    title = { Text(text = "${rocket?.name}") },
+                    title = { Text(text = "${landpad?.name}") },
                     navigationIcon = {
                         IconButton(onClick = onBackButtonClick) {
                             Icon(
@@ -98,77 +99,49 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
                         Column(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Row(
+                            SubcomposeAsyncImage(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 6.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
+                                    .fillMaxWidth(),
+                                model = landpad?.images?.large?.firstOrNull(),
+                                contentDescription = "Rocket Image",
+                                contentScale = ContentScale.Crop,
+                                loading = { BoxCircularIndicator() }
+                            )
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.Top
                             ) {
-                                SubcomposeAsyncImage(
-                                    modifier = Modifier
-                                        .size(130.dp)
-                                        .padding(10.dp)
-                                        .clip(CircleShape),
-                                    model = rocket?.flickrImages?.firstOrNull(),
-                                    contentDescription = "Rocket Image",
-                                    contentScale = ContentScale.Crop,
-                                    loading = { BoxCircularIndicator() }
+                                Text(
+                                    text = "Full Name: ${landpad?.fullName}",
+                                    color = Color.White,
+                                )
+                                Text(
+                                    text = "Status: ${landpad?.status}",
+                                    color = Color.White,
+                                )
+                                Text(
+                                    text = "Locality: ${landpad?.locality}",
+                                    color = Color.White,
+                                )
+                                Text(
+                                    text = "Region: ${landpad?.region}",
+                                    color = Color.White,
                                 )
 
-                                Column(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalAlignment = Alignment.Start,
-                                    verticalArrangement = Arrangement.Top
-                                ) {
-                                    Text(
-                                        text = "Rocket Name: ${rocket?.name}",
-                                        color = Color.White,
-                                    )
-                                    Text(
-                                        text = "First Flight: ${rocket?.firstFlight}",
-                                        color = Color.White,
-                                    )
-                                    Text(
-                                        text = "Country: ${rocket?.country}",
-                                        color = Color.White,
-                                    )
-                                    Text(
-                                        text = "Company: ${rocket?.company}",
-                                        color = Color.White,
-                                    )
-                                }
+                                Text(
+                                    text = "Type: ${landpad?.type}",
+                                    color = Color.White,
+                                )
                             }
 
                             Text(
-                                modifier = Modifier.padding(horizontal = 10.dp),
-                                text = "Description: ${rocket?.description}",
-                                color = Color.White,)
+                                modifier = Modifier.padding(horizontal = 10.dp,vertical = 5.dp),
+                                text = "Details: ${landpad?.details}",
+                                color = Color.White)
 
-                            LazyRow(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(7.dp)
-                            ) {
-                                items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
-                                    SubcomposeAsyncImage (
-                                        modifier = Modifier
-                                            .size(150.dp)
-                                            .padding(10.dp)
-                                            .clip(CircleShape),
-                                        model = image,
-                                        contentDescription = "Rocket Image",
-                                        contentScale = ContentScale.Crop,
-                                        loading = { BoxCircularIndicator() }
-                                    )
-                                }
-                            }
-
-
-                            StageDetailTable(rocket = rocket)
-
-                            EngineDetailTable(rocket = rocket)
-
-                            MeasureDetailTable(rocket = rocket)
+                            EngineDetailTable(landpad = landpad)
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -30,20 +31,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
+import com.solodev.launchx.domain.model.Landpad
 import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.utils.clickableWithoutRipple
 
 @Composable
-fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
+fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
     Box(
         modifier = Modifier
             .padding(vertical = 14.dp, horizontal = 10.dp),
     ) {
         ElevatedCard(
             modifier = Modifier
-                .size(140.dp)
+                .size(120.dp)
                 .clickableWithoutRipple {
-                    onCardRocketClick(rocket.id)
+                    onCardLandPadClick(landpad.id)
                 }
                 .padding(5.dp),
             shape = RoundedCornerShape(20.dp),
@@ -64,41 +66,43 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Bottom
             ) {
-
-                val nameText = rocket.name?.let {
-                    if (it.length > 10) it.take(10) + ".." else it
-                } ?: ""
-                Text(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 10.dp, start = 10.dp, end = 10.dp),
-                    text = nameText,
-                    color = Color.White,
-                    fontSize = 17.sp,
-                    maxLines = 1,
-                    fontWeight = FontWeight.Bold,
-                    overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center
-                )
+                        .padding(horizontal = 10.dp, vertical = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        modifier = Modifier.weight(0.8f),
+                        text = "${landpad.name}",
+                        color = Color.White,
+                        fontSize = 17.sp,
+                        maxLines = 1,
+                        fontWeight = FontWeight.Bold,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.End
+                    )
+
+                    Icon(
+                        modifier = Modifier.size(30.dp).weight(0.5f),
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "Forward Arrow",
+                        tint = Color.White
+                    )
+                }
             }
         }
 
-        Icon(
-            modifier = Modifier
-                .offset((88).dp, (50).dp)
-                .size(40.dp),
-            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            contentDescription = "Forward Arrow",
-            tint = Color.White
-        )
+
 
         SubcomposeAsyncImage(
             modifier = Modifier
-                .offset((-18).dp, (-20).dp)
-                .size(110.dp)
+                .offset((0).dp, (-30).dp)
+                .size(120.dp)
                 .padding(10.dp)
-                .clip(CircleShape),
-            model = rocket.flickrImages?.firstOrNull(),
+                .clip(RoundedCornerShape(10.dp)),
+            model = landpad.images?.large?.firstOrNull(),
             contentDescription = "Rocket Image",
             contentScale = ContentScale.Crop,
             loading = { BoxCircularIndicator() }
