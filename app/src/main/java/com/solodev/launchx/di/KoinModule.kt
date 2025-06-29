@@ -1,6 +1,8 @@
 package com.solodev.launchx.di
 
 import androidx.room.Room
+import com.solodev.launchx.connectivity.ConnectivityObserver
+import com.solodev.launchx.connectivity.NetworkConnectivityObserver
 import com.solodev.launchx.data.local.AppDatabase
 import com.solodev.launchx.data.remote.SpaceXApi
 import com.solodev.launchx.data.repository.LaunchXRepositoryImpl
@@ -47,6 +49,9 @@ val appModule = module {
         Room.databaseBuilder(get(), AppDatabase::class.java, "launchx.db").build()
     }
     single { get<AppDatabase>().launchXDao() }
+
+    single<ConnectivityObserver> { NetworkConnectivityObserver(get()) }
+
     single<SpaceXApi> { SpaceXApi(get()) }
     single<LaunchXRepository> { LaunchXRepositoryImpl( get(), get()) }
     single { GetRockets( get()) }
@@ -54,7 +59,9 @@ val appModule = module {
     single { GetLandPads(get()) }
     single { LaunchXUseCase(get(), get(), get()) }
     factory {
-        HomeViewModel( launchXUseCase = get())
+        HomeViewModel(
+            launchXUseCase = get(),
+            connectivity = get())
     }
 }
 

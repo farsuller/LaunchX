@@ -1,7 +1,12 @@
 package com.solodev.launchx.presentation.screen.home
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solodev.launchx.connectivity.ConnectivityObserver
+import com.solodev.launchx.connectivity.NetworkConnectivityObserver
 import com.solodev.launchx.data.RequestState
 import com.solodev.launchx.domain.usecase.LaunchXUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,17 +19,28 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val launchXUseCase: LaunchXUseCase
+    private val launchXUseCase: LaunchXUseCase,
+    private val connectivity: ConnectivityObserver,
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(HomeState())
     val homeState: StateFlow<HomeState> = _homeState.asStateFlow()
+
+    private val _networkStatus = MutableStateFlow(ConnectivityObserver.Status.Available)
+    val networkStatus = _networkStatus.asStateFlow()
 
     fun requestApi() {
         getRockets()
         getCrews()
         getLandPads()
     }
+
+    fun observeConnectivity() = viewModelScope.launch {
+        connectivity.observe().collect { status ->
+            _networkStatus.value = status
+        }
+    }
+
 
     private fun getLandPads() = viewModelScope.launch {
         launchXUseCase

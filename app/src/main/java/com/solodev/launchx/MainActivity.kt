@@ -1,16 +1,19 @@
 package com.solodev.launchx
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.solodev.launchx.connectivity.ConnectivityObserver
 import com.solodev.launchx.di.initializeKoin
 import com.solodev.launchx.presentation.screen.detail.LandPadDetailScreen
 import com.solodev.launchx.presentation.screen.detail.RocketDetailScreen
@@ -27,11 +30,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             LaunchXTheme {
                 val navController = rememberNavController()
-
                 val viewModel = koinViewModel<HomeViewModel>()
                 val homeState by viewModel.homeState.collectAsState()
+                val networkStatus by viewModel.networkStatus.collectAsState()
+                val context = LocalContext.current
+
+                LaunchedEffect(networkStatus) {
+                    if (networkStatus == ConnectivityObserver.Status.Lost ||
+                        networkStatus == ConnectivityObserver.Status.Unavailable
+                    ) {
+                        Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "Internet connected", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
                 LaunchedEffect(Unit) {
+                    viewModel.observeConnectivity()
                     viewModel.requestApi()
                 }
 
