@@ -4,18 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,23 +21,21 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Landpad
-import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.EngineDetailTable
-import com.solodev.launchx.presentation.component.MeasureDetailTable
-import com.solodev.launchx.presentation.component.StageDetailTable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
+fun LandPadDetailScreen(
+    landpad: Landpad?,
+    onBackButtonClick: () -> Unit
+) {
 
     Box(
         Modifier
@@ -71,13 +64,19 @@ fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                    title = { Text(text = "${landpad?.name}") },
+                    title = {
+                        Text(
+                            text = "${landpad?.name}",
+                            color = Color.White
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = onBackButtonClick) {
                             Icon(
                                 modifier = Modifier.size(34.dp),
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                                contentDescription = "Back"
+                                contentDescription = "Back",
+                                tint = Color.White
                             )
                         }
                     }
@@ -109,7 +108,9 @@ fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
                             )
 
                             Column(
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 10.dp),
                                 horizontalAlignment = Alignment.Start,
                                 verticalArrangement = Arrangement.Top
                             ) {
@@ -137,9 +138,10 @@ fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
                             }
 
                             Text(
-                                modifier = Modifier.padding(horizontal = 10.dp,vertical = 5.dp),
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                                 text = "Details: ${landpad?.details}",
-                                color = Color.White)
+                                color = Color.White
+                            )
 
                             landpad?.landingAttempts?.let {
                                 EngineDetailTable(landpad = landpad)

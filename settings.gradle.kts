@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "LaunchX"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 

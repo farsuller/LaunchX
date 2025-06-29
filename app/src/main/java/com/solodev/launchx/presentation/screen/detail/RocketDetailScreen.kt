@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +30,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.presentation.component.BoxCircularIndicator
@@ -41,7 +39,10 @@ import com.solodev.launchx.presentation.component.StageDetailTable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
+fun RocketDetailScreen(
+    rocket: Rocket?,
+    onBackButtonClick: () -> Unit
+) {
 
     Box(
         Modifier
@@ -70,13 +71,19 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                    title = { Text(text = "${rocket?.name}") },
+                    title = {
+                        Text(
+                            text = "${rocket?.name}",
+                            color = Color.White,
+                        )
+                    },
                     navigationIcon = {
                         IconButton(onClick = onBackButtonClick) {
                             Icon(
                                 modifier = Modifier.size(34.dp),
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                                contentDescription = "Back"
+                                contentDescription = "Back",
+                                tint = Color.White
                             )
                         }
                     }
@@ -143,14 +150,15 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
                             Text(
                                 modifier = Modifier.padding(horizontal = 10.dp),
                                 text = "Description: ${rocket?.description}",
-                                color = Color.White,)
+                                color = Color.White,
+                            )
 
                             LazyRow(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(7.dp)
                             ) {
                                 items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
-                                    SubcomposeAsyncImage (
+                                    SubcomposeAsyncImage(
                                         modifier = Modifier
                                             .size(150.dp)
                                             .padding(10.dp)
