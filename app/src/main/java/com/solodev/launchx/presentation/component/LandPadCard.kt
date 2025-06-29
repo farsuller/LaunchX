@@ -98,8 +98,8 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
 
         SubcomposeAsyncImage(
             modifier = Modifier
-                .offset((0).dp, (-30).dp)
-                .size(120.dp)
+                .offset((5).dp, (-30).dp)
+                .size(110.dp)
                 .padding(10.dp)
                 .clip(RoundedCornerShape(10.dp)),
             model = landpad.images?.large?.firstOrNull(),

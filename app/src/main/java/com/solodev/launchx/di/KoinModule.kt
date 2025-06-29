@@ -1,5 +1,7 @@
 package com.solodev.launchx.di
 
+import androidx.room.Room
+import com.solodev.launchx.data.local.AppDatabase
 import com.solodev.launchx.data.remote.SpaceXApi
 import com.solodev.launchx.data.repository.LaunchXRepositoryImpl
 import com.solodev.launchx.domain.repository.LaunchXRepository
@@ -41,12 +43,15 @@ val appModule = module {
         }
     }
 
+    single {
+        Room.databaseBuilder(get(), AppDatabase::class.java, "launchx.db").build()
+    }
+    single { get<AppDatabase>().launchXDao() }
     single<SpaceXApi> { SpaceXApi(get()) }
-    single<LaunchXRepository> { LaunchXRepositoryImpl( get()) }
+    single<LaunchXRepository> { LaunchXRepositoryImpl( get(), get()) }
     single { GetRockets( get()) }
     single { GetCrews(get()) }
     single { GetLandPads(get()) }
-
     single { LaunchXUseCase(get(), get(), get()) }
     factory {
         HomeViewModel( launchXUseCase = get())

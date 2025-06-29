@@ -141,7 +141,9 @@ fun LandPadDetailScreen(landpad: Landpad?, onBackButtonClick: () -> Unit) {
                                 text = "Details: ${landpad?.details}",
                                 color = Color.White)
 
-                            EngineDetailTable(landpad = landpad)
+                            landpad?.landingAttempts?.let {
+                                EngineDetailTable(landpad = landpad)
+                            }
                         }
                     }
                 }

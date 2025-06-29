@@ -132,6 +132,7 @@ private fun LandPadsContent(
             .height(totalHeight)
             .padding(horizontal = 4.dp)
             .padding(top = 10.dp),
+        horizontalArrangement = Arrangement.Center,
         contentPadding = PaddingValues(top = 10.dp)
     ) {
         items(homeState.landpads ?: emptyList()) { landpad ->

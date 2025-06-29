@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Crew(
+    val id: String,
     val agency: String? = null,
-    val id: String? = null,
     val image: String? = null,
     val launches: List<String>? = null,
     val name: String? = null,

@@ -163,12 +163,18 @@ fun RocketDetailScreen(rocket: Rocket?, onBackButtonClick: () -> Unit) {
                                 }
                             }
 
+                            rocket?.firstStage?.let {
+                                StageDetailTable(rocket = rocket)
+                            }
 
-                            StageDetailTable(rocket = rocket)
 
-                            EngineDetailTable(rocket = rocket)
+                            rocket?.engines?.number?.let {
+                                EngineDetailTable(rocket = rocket)
+                            }
 
-                            MeasureDetailTable(rocket = rocket)
+                            rocket?.diameter?.let {
+                                MeasureDetailTable(rocket = rocket)
+                            }
                         }
                     }
                 }
