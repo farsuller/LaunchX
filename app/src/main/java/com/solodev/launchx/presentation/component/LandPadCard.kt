@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -22,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -32,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Landpad
-import com.solodev.launchx.domain.model.Rocket
+import com.solodev.launchx.utils.cardGradientBackground
 import com.solodev.launchx.utils.clickableWithoutRipple
 
 @Composable
@@ -55,14 +53,7 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0xFF195188),
-                                Color(0xFF0A2E54),
-                            ),
-                        )
-                    ),
+                    .background(cardGradientBackground()),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Bottom
             ) {
@@ -85,7 +76,9 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
                     )
 
                     Icon(
-                        modifier = Modifier.size(30.dp).weight(0.5f),
+                        modifier = Modifier
+                            .size(30.dp)
+                            .weight(0.5f),
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                         contentDescription = "Forward Arrow",
                         tint = Color.White
@@ -93,8 +86,6 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
                 }
             }
         }
-
-
 
         SubcomposeAsyncImage(
             modifier = Modifier

@@ -37,6 +37,9 @@ import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.ErrorBoxContainer
 import com.solodev.launchx.presentation.component.LandPadCard
 import com.solodev.launchx.presentation.component.RocketCard
+import com.solodev.launchx.ui.theme.NightColor
+import com.solodev.launchx.ui.theme.PickledWoodColor
+import com.solodev.launchx.utils.gradientBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,14 +51,7 @@ fun HomeScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF30495E),
-                        Color(0xFF040608),
-                    ),
-                )
-            )
+            .background(gradientBackground())
     ) {
         Scaffold(
             containerColor = Color.Transparent,

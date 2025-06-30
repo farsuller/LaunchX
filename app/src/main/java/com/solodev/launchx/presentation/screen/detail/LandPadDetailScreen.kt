@@ -29,6 +29,7 @@ import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Landpad
 import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.EngineDetailTable
+import com.solodev.launchx.utils.gradientBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,14 +41,7 @@ fun LandPadDetailScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF30495E),
-                        Color(0xFF040608),
-                    ),
-                )
-            )
+            .background(gradientBackground())
     ) {
         Scaffold(
             containerColor = Color.Transparent,

@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.solodev.launchx.domain.model.Rocket
+import com.solodev.launchx.utils.cardGradientBackground
 import com.solodev.launchx.utils.clickableWithoutRipple
 
 @Composable
@@ -53,14 +53,7 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0xFF195188),
-                                Color(0xFF0A2E54),
-                            ),
-                        )
-                    ),
+                    .background(cardGradientBackground()),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Bottom
             ) {
