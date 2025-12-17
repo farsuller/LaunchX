@@ -11,8 +11,7 @@ import com.solodev.launchx.domain.model.Rocket
 
 @Composable
 fun StageDetailTable(rocket: Rocket?) {
-
-    // Each cell of a column must have the same weight. 
+    // Each cell of a column must have the same weight.
     val column1Weight = .6f // 30%
     val column2Weight = .7f // 70%
     val column3Weight = .7f // 70%
@@ -20,7 +19,7 @@ fun StageDetailTable(rocket: Rocket?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(10.dp),
     ) {
         // Here is the header
         Row {

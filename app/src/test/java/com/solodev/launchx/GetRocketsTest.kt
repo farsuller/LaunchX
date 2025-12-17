@@ -20,7 +20,6 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class GetRocketsTest {
-
     private val fakeRepository = mock<LaunchXRepository>()
     private val testUseCase = GetRockets(fakeRepository)
 
@@ -33,7 +32,7 @@ class GetRocketsTest {
     fun `returns success state with rockets`() = runTest {
         val fakeData = listOf(Rocket(name = "Falcon 9", id = "1"))
         whenever(fakeRepository.getRockets()).thenReturn(
-            flowOf(RequestState.Success(fakeData))
+            flowOf(RequestState.Success(fakeData)),
         )
 
         val result = testUseCase().first()

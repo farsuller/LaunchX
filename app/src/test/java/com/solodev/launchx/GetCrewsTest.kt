@@ -2,7 +2,6 @@ package com.solodev.launchx
 
 import com.solodev.launchx.data.RequestState
 import com.solodev.launchx.domain.model.Crew
-import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.domain.repository.LaunchXRepository
 import com.solodev.launchx.domain.usecase.GetCrews
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +20,6 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class GetCrewsTest {
-
     private val fakeRepository = mock<LaunchXRepository>()
     private val testUseCase = GetCrews(fakeRepository)
 
@@ -34,7 +32,7 @@ class GetCrewsTest {
     fun `returns success state with crews`() = runTest {
         val fakeData = listOf(Crew(name = "Test User", id = "1"))
         whenever(fakeRepository.getCrews()).thenReturn(
-            flowOf(RequestState.Success(fakeData))
+            flowOf(RequestState.Success(fakeData)),
         )
 
         val result = testUseCase().first()

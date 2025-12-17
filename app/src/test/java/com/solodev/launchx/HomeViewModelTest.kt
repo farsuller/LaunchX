@@ -24,7 +24,6 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {
-
     private val getRockets = mock<GetRockets>()
     private val getCrews = mock<GetCrews>()
     private val getLandPads = mock<GetLandPads>()
@@ -37,21 +36,22 @@ class HomeViewModelTest {
         Dispatchers.setMain(UnconfinedTestDispatcher())
 
         whenever(getRockets()).thenReturn(
-            flowOf(RequestState.Success(listOf(Rocket(name = "Falcon Heavy", id = "2"))))
+            flowOf(RequestState.Success(listOf(Rocket(name = "Falcon Heavy", id = "2")))),
         )
 
         whenever(getCrews()).thenReturn(
-            flowOf(RequestState.Success(emptyList()))
+            flowOf(RequestState.Success(emptyList())),
         )
 
         whenever(getLandPads()).thenReturn(
-            flowOf(RequestState.Success(emptyList()))
+            flowOf(RequestState.Success(emptyList())),
         )
 
-        viewModel = HomeViewModel(
-            launchXUseCase = LaunchXUseCase(getRockets, getCrews, getLandPads),
-            connectivity = connectivityObserver
-        )
+        viewModel =
+            HomeViewModel(
+                launchXUseCase = LaunchXUseCase(getRockets, getCrews, getLandPads),
+                connectivity = connectivityObserver,
+            )
     }
 
     @Test

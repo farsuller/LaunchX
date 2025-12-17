@@ -10,5 +10,5 @@ data class Crew(
     val launches: List<String>? = null,
     val name: String? = null,
     val status: String? = null,
-    val wikipedia: String? = null
+    val wikipedia: String? = null,
 )

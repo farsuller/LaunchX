@@ -13,7 +13,8 @@ import com.solodev.launchx.ui.theme.PickledWoodColor
 
 @Composable
 fun cardGradientBackground(): Brush = Brush.verticalGradient(
-    colors = listOf(
+    colors =
+    listOf(
         LightNavyColor,
         GreenVogueColor,
     ),
@@ -21,16 +22,15 @@ fun cardGradientBackground(): Brush = Brush.verticalGradient(
 
 @Composable
 fun gradientBackground(): Brush = Brush.verticalGradient(
-    colors = listOf(
+    colors =
+    listOf(
         PickledWoodColor,
         NightColor,
     ),
 )
 
 @Composable
-fun Modifier.clickableWithoutRipple(
-    onClick: () -> Unit,
-): Modifier {
+fun Modifier.clickableWithoutRipple(onClick: () -> Unit): Modifier {
     val interactionSource = remember { MutableInteractionSource() }
     return this.then(
         Modifier.clickable(

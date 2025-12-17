@@ -42,13 +42,12 @@ import com.solodev.launchx.utils.gradientBackground
 @Composable
 fun RocketDetailScreen(
     rocket: Rocket?,
-    onBackButtonClick: () -> Unit
+    onBackButtonClick: () -> Unit,
 ) {
-
     Box(
         Modifier
             .fillMaxSize()
-            .background(gradientBackground())
+            .background(gradientBackground()),
     ) {
         Scaffold(
             containerColor = Color.Transparent,
@@ -77,12 +76,12 @@ fun RocketDetailScreen(
                                 modifier = Modifier.size(34.dp),
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                                 contentDescription = "Back",
-                                tint = Color.White
+                                tint = Color.White,
                             )
                         }
-                    }
+                    },
                 )
-            }
+            },
         ) { paddingValues ->
 
             Box(
@@ -90,21 +89,20 @@ fun RocketDetailScreen(
                     .fillMaxSize()
                     .padding(
                         top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    )
-            )
-            {
+                        bottom = paddingValues.calculateBottomPadding(),
+                    ),
+            ) {
                 LazyColumn(modifier = Modifier) {
                     item {
                         Column(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 6.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
+                                verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 SubcomposeAsyncImage(
                                     modifier = Modifier
@@ -114,13 +112,13 @@ fun RocketDetailScreen(
                                     model = rocket?.flickrImages?.firstOrNull(),
                                     contentDescription = "Rocket Image",
                                     contentScale = ContentScale.Crop,
-                                    loading = { BoxCircularIndicator() }
+                                    loading = { BoxCircularIndicator() },
                                 )
 
                                 Column(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalAlignment = Alignment.Start,
-                                    verticalArrangement = Arrangement.Top
+                                    verticalArrangement = Arrangement.Top,
                                 ) {
                                     Text(
                                         text = "Rocket Name: ${rocket?.name}",
@@ -149,7 +147,7 @@ fun RocketDetailScreen(
 
                             LazyRow(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(7.dp)
+                                horizontalArrangement = Arrangement.spacedBy(7.dp),
                             ) {
                                 items(rocket?.flickrImages?.drop(1) ?: emptyList()) { image ->
                                     SubcomposeAsyncImage(
@@ -160,7 +158,7 @@ fun RocketDetailScreen(
                                         model = image,
                                         contentDescription = "Rocket Image",
                                         contentScale = ContentScale.Crop,
-                                        loading = { BoxCircularIndicator() }
+                                        loading = { BoxCircularIndicator() },
                                     )
                                 }
                             }
@@ -168,7 +166,6 @@ fun RocketDetailScreen(
                             rocket?.firstStage?.let {
                                 StageDetailTable(rocket = rocket)
                             }
-
 
                             rocket?.engines?.number?.let {
                                 EngineDetailTable(rocket = rocket)

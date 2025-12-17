@@ -4,14 +4,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Route {
+    @Serializable
+    data object Home : Route
 
     @Serializable
-    data object Home: Route
+    data class RocketDetail(
+        val id: String,
+    ) : Route
 
     @Serializable
-    data class RocketDetail(val id : String):Route
-
-    @Serializable
-    data class LandPadsDetail(val id : String):Route
-
+    data class LandPadsDetail(
+        val id: String,
+    ) : Route
 }

@@ -25,7 +25,6 @@ class LaunchXRepositoryImpl(
             launchXDao.insertAllRocket(rockets.map { it.toEntity() })
 
             emit(RequestState.Success(rockets))
-
         } catch (_: Exception) {
             val cached = launchXDao.getAllRocket().map { it.toDomain() }
             if (cached.isNotEmpty()) {

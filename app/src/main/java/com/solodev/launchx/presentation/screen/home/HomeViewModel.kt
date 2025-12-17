@@ -1,12 +1,10 @@
 package com.solodev.launchx.presentation.screen.home
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solodev.launchx.connectivity.ConnectivityObserver
-import com.solodev.launchx.connectivity.NetworkConnectivityObserver
 import com.solodev.launchx.data.RequestState
 import com.solodev.launchx.domain.usecase.LaunchXUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +20,6 @@ class HomeViewModel(
     private val launchXUseCase: LaunchXUseCase,
     private val connectivity: ConnectivityObserver,
 ) : ViewModel() {
-
     private val _homeState = MutableStateFlow(HomeState())
     val homeState: StateFlow<HomeState> = _homeState.asStateFlow()
 
@@ -40,7 +37,6 @@ class HomeViewModel(
             _networkStatus.value = status
         }
     }
-
 
     private fun getLandPads() = viewModelScope.launch {
         launchXUseCase
@@ -67,7 +63,6 @@ class HomeViewModel(
                     }
                     is RequestState.Error -> {}
                 }
-
             }
     }
 
@@ -80,11 +75,10 @@ class HomeViewModel(
                 _homeState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = e.message
+                        errorMessage = e.message,
                     )
                 }
-            }
-            .collectLatest { response ->
+            }.collectLatest { response ->
                 when (response) {
                     is RequestState.Success -> {
                         _homeState.update { it.copy(isLoading = false, rockets = response.result) }
@@ -94,7 +88,7 @@ class HomeViewModel(
                         _homeState.update {
                             it.copy(
                                 isLoading = false,
-                                errorMessage = response.message
+                                errorMessage = response.message,
                             )
                         }
                     }

@@ -55,9 +55,8 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
                     .fillMaxSize()
                     .background(cardGradientBackground()),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Bottom
+                verticalArrangement = Arrangement.Bottom,
             ) {
-
                 val nameText = rocket.name?.let {
                     if (it.length > 10) it.take(10) + ".." else it
                 } ?: ""
@@ -71,7 +70,7 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
                     maxLines = 1,
                     fontWeight = FontWeight.Bold,
                     overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -82,7 +81,7 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
                 .size(40.dp),
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
             contentDescription = "Forward Arrow",
-            tint = Color.White
+            tint = Color.White,
         )
 
         SubcomposeAsyncImage(
@@ -94,7 +93,7 @@ fun RocketCard(rocket: Rocket, onCardRocketClick: (String) -> Unit) {
             model = rocket.flickrImages?.firstOrNull(),
             contentDescription = "Rocket Image",
             contentScale = ContentScale.Crop,
-            loading = { BoxCircularIndicator() }
+            loading = { BoxCircularIndicator() },
         )
     }
 }

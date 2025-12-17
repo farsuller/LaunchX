@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.devtool.ksp)
+    alias(libs.plugins.secrets.maps.platform)
+    alias(libs.plugins.kotzilla)
+    alias(libs.plugins.ktlint) apply false
 }
 
 android {
@@ -29,15 +32,14 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
 
@@ -50,6 +52,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.material3)
 
     implementation(libs.androidx.navigation.compose)
@@ -60,6 +63,10 @@ dependencies {
 
     implementation (libs.bundles.bundle.room)
     ksp (libs.androidx.room.compiler)
+
+    implementation(libs.kotzilla.sdk.compose)
+
+    testImplementation (libs.koin.test)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -73,4 +80,12 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.turbine)
+}
+
+kotzilla {
+    composeInstrumentation = true
+}
+
+secrets {
+    propertiesFileName = "gradle.properties"
 }

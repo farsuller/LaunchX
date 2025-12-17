@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -37,8 +36,6 @@ import com.solodev.launchx.presentation.component.BoxCircularIndicator
 import com.solodev.launchx.presentation.component.ErrorBoxContainer
 import com.solodev.launchx.presentation.component.LandPadCard
 import com.solodev.launchx.presentation.component.RocketCard
-import com.solodev.launchx.ui.theme.NightColor
-import com.solodev.launchx.ui.theme.PickledWoodColor
 import com.solodev.launchx.utils.gradientBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,12 +43,12 @@ import com.solodev.launchx.utils.gradientBackground
 fun HomeScreen(
     homeState: HomeState,
     onCardRocketClick: (String) -> Unit,
-    onCardLandPadClick: (String) -> Unit
+    onCardLandPadClick: (String) -> Unit,
 ) {
     Box(
         Modifier
             .fillMaxSize()
-            .background(gradientBackground())
+            .background(gradientBackground()),
     ) {
         Scaffold(
             containerColor = Color.Transparent,
@@ -63,19 +60,19 @@ fun HomeScreen(
                         Text(
                             text = "LaunchX",
                             fontSize = 20.sp,
-                            color = Color.White
+                            color = Color.White,
                         )
-                    }
+                    },
                 )
-            }
+            },
         ) { paddingValues ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
                         top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    )
+                        bottom = paddingValues.calculateBottomPadding(),
+                    ),
             ) {
                 when {
                     homeState.isLoading -> BoxCircularIndicator(modifier = Modifier.fillMaxSize())
@@ -87,14 +84,14 @@ fun HomeScreen(
                         item {
                             RocketsContent(
                                 homeState = homeState,
-                                onCardRocketClick = onCardRocketClick
+                                onCardRocketClick = onCardRocketClick,
                             )
 
                             CrewsContent(homeState = homeState)
 
                             LandPadsContent(
                                 homeState = homeState,
-                                onCardLandPadClick = onCardLandPadClick
+                                onCardLandPadClick = onCardLandPadClick,
                             )
                         }
                     }
@@ -107,7 +104,7 @@ fun HomeScreen(
 @Composable
 private fun LandPadsContent(
     homeState: HomeState,
-    onCardLandPadClick: (String) -> Unit
+    onCardLandPadClick: (String) -> Unit,
 ) {
     val lanPadSize = homeState.landpads?.size ?: 0
     val rowCount = (lanPadSize + 1) / 2 // assuming 2 columns
@@ -118,7 +115,7 @@ private fun LandPadsContent(
         modifier = Modifier.padding(8.dp),
         text = "LandPads",
         fontSize = 25.sp,
-        color = Color.White
+        color = Color.White,
     )
 
     LazyVerticalGrid(
@@ -129,13 +126,13 @@ private fun LandPadsContent(
             .padding(horizontal = 4.dp)
             .padding(top = 10.dp),
         horizontalArrangement = Arrangement.Center,
-        contentPadding = PaddingValues(top = 10.dp)
+        contentPadding = PaddingValues(top = 10.dp),
     ) {
         items(homeState.landpads ?: emptyList()) { landpad ->
 
             LandPadCard(
                 landpad = landpad,
-                onCardLandPadClick = onCardLandPadClick
+                onCardLandPadClick = onCardLandPadClick,
             )
         }
     }
@@ -147,18 +144,18 @@ private fun CrewsContent(homeState: HomeState) {
         modifier = Modifier.padding(8.dp),
         text = "Crews",
         fontSize = 25.sp,
-        color = Color.White
+        color = Color.White,
     )
 
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp)
+            .padding(horizontal = 4.dp),
     ) {
         items(homeState.crews ?: emptyList()) { crew ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 SubcomposeAsyncImage(
                     modifier = Modifier
@@ -168,7 +165,7 @@ private fun CrewsContent(homeState: HomeState) {
                     model = crew.image,
                     contentDescription = "Rocket Image",
                     contentScale = ContentScale.Crop,
-                    loading = { BoxCircularIndicator() }
+                    loading = { BoxCircularIndicator() },
                 )
 
                 Text(
@@ -179,7 +176,7 @@ private fun CrewsContent(homeState: HomeState) {
                     color = Color.White,
                     fontSize = 16.sp,
                     maxLines = 2,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -189,28 +186,25 @@ private fun CrewsContent(homeState: HomeState) {
 @Composable
 private fun RocketsContent(
     homeState: HomeState,
-    onCardRocketClick: (String) -> Unit
+    onCardRocketClick: (String) -> Unit,
 ) {
     Text(
         modifier = Modifier.padding(8.dp),
         text = "Rockets",
         fontSize = 25.sp,
-        color = Color.White
+        color = Color.White,
     )
 
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp)
+            .padding(horizontal = 4.dp),
     ) {
         items(homeState.rockets ?: emptyList()) { rocket ->
             RocketCard(
                 rocket = rocket,
-                onCardRocketClick = onCardRocketClick
+                onCardRocketClick = onCardRocketClick,
             )
         }
     }
 }
-
-
-

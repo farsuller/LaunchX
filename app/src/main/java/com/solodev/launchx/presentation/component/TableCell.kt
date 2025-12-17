@@ -1,6 +1,5 @@
 package com.solodev.launchx.presentation.component
 
-
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RowScope.TableCell(
     text: String,
-    weight: Float
+    weight: Float,
 ) {
     Text(
         text = text,
@@ -21,6 +20,6 @@ fun RowScope.TableCell(
             .border(1.dp, color = Color.White)
             .weight(weight)
             .padding(8.dp),
-        color = Color.White
+        color = Color.White,
     )
 }

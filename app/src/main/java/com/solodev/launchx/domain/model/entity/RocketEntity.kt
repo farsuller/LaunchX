@@ -12,7 +12,7 @@ data class RocketEntity(
     val company: String?,
     val firstFlight: String?,
     val description: String?,
-    val image: String?
+    val image: String?,
 )
 
 fun Rocket.toEntity() = RocketEntity(
@@ -22,9 +22,8 @@ fun Rocket.toEntity() = RocketEntity(
     company = company,
     firstFlight = firstFlight,
     description = description,
-    image = flickrImages?.firstOrNull()
+    image = flickrImages?.firstOrNull(),
 )
-
 
 fun RocketEntity.toDomain() = Rocket(
     id = id,

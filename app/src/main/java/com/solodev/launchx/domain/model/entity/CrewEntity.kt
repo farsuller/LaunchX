@@ -11,15 +11,14 @@ data class CrewEntity(
     val image: String?,
 )
 
-
 fun Crew.toEntity() = CrewEntity(
     id = id,
     name = name,
-    image = image
+    image = image,
 )
 
 fun CrewEntity.toDomain() = Crew(
     id = id,
     name = name,
-    image = image
+    image = image,
 )

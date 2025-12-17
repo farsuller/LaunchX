@@ -12,11 +12,11 @@ import androidx.compose.ui.graphics.Color
 fun ErrorBoxContainer(errorMessage: String) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = "Error: $errorMessage",
-            color = Color.White
+            color = Color.White,
         )
     }
 }

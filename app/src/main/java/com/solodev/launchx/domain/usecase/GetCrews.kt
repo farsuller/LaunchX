@@ -6,7 +6,7 @@ import com.solodev.launchx.domain.repository.LaunchXRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetCrews(
-    private val repository: LaunchXRepository
+    private val repository: LaunchXRepository,
 ) {
-    suspend operator fun invoke() : Flow<RequestState<List<Crew>>> = repository.getCrews()
+    suspend operator fun invoke(): Flow<RequestState<List<Crew>>> = repository.getCrews()
 }

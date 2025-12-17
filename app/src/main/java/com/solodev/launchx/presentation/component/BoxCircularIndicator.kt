@@ -11,7 +11,8 @@ import androidx.compose.ui.graphics.Color
 fun BoxCircularIndicator(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center) {
+        contentAlignment = Alignment.Center,
+    ) {
         CircularProgressIndicator(color = Color.White)
     }
 }

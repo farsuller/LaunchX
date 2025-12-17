@@ -55,14 +55,14 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
                     .fillMaxSize()
                     .background(cardGradientBackground()),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Bottom
+                verticalArrangement = Arrangement.Bottom,
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp, vertical = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         modifier = Modifier.weight(0.8f),
@@ -72,7 +72,7 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
                         maxLines = 1,
                         fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.End,
                     )
 
                     Icon(
@@ -81,7 +81,7 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
                             .weight(0.5f),
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                         contentDescription = "Forward Arrow",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -96,7 +96,7 @@ fun LandPadCard(landpad: Landpad, onCardLandPadClick: (String) -> Unit) {
             model = landpad.images?.large?.firstOrNull(),
             contentDescription = "Rocket Image",
             contentScale = ContentScale.Crop,
-            loading = { BoxCircularIndicator() }
+            loading = { BoxCircularIndicator() },
         )
     }
 }

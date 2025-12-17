@@ -35,13 +35,12 @@ import com.solodev.launchx.utils.gradientBackground
 @Composable
 fun LandPadDetailScreen(
     landpad: Landpad?,
-    onBackButtonClick: () -> Unit
+    onBackButtonClick: () -> Unit,
 ) {
-
     Box(
         Modifier
             .fillMaxSize()
-            .background(gradientBackground())
+            .background(gradientBackground()),
     ) {
         Scaffold(
             containerColor = Color.Transparent,
@@ -61,7 +60,7 @@ fun LandPadDetailScreen(
                     title = {
                         Text(
                             text = "${landpad?.name}",
-                            color = Color.White
+                            color = Color.White,
                         )
                     },
                     navigationIcon = {
@@ -70,12 +69,12 @@ fun LandPadDetailScreen(
                                 modifier = Modifier.size(34.dp),
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                                 contentDescription = "Back",
-                                tint = Color.White
+                                tint = Color.White,
                             )
                         }
-                    }
+                    },
                 )
-            }
+            },
         ) { paddingValues ->
 
             Box(
@@ -83,14 +82,13 @@ fun LandPadDetailScreen(
                     .fillMaxSize()
                     .padding(
                         top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    )
-            )
-            {
+                        bottom = paddingValues.calculateBottomPadding(),
+                    ),
+            ) {
                 LazyColumn(modifier = Modifier) {
                     item {
                         Column(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             SubcomposeAsyncImage(
                                 modifier = Modifier
@@ -98,7 +96,7 @@ fun LandPadDetailScreen(
                                 model = landpad?.images?.large?.firstOrNull(),
                                 contentDescription = "Rocket Image",
                                 contentScale = ContentScale.Crop,
-                                loading = { BoxCircularIndicator() }
+                                loading = { BoxCircularIndicator() },
                             )
 
                             Column(
@@ -106,7 +104,7 @@ fun LandPadDetailScreen(
                                     .fillMaxWidth()
                                     .padding(horizontal = 10.dp),
                                 horizontalAlignment = Alignment.Start,
-                                verticalArrangement = Arrangement.Top
+                                verticalArrangement = Arrangement.Top,
                             ) {
                                 Text(
                                     text = "Full Name: ${landpad?.fullName}",
@@ -134,7 +132,7 @@ fun LandPadDetailScreen(
                             Text(
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                                 text = "Details: ${landpad?.details}",
-                                color = Color.White
+                                color = Color.White,
                             )
 
                             landpad?.landingAttempts?.let {

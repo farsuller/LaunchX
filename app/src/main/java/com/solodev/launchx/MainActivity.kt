@@ -49,11 +49,14 @@ class MainActivity : ComponentActivity() {
                     if (firstLoad) {
                         when (networkStatus) {
                             ConnectivityObserver.Status.Unavailable,
-                            ConnectivityObserver.Status.Lost -> snackBarHostState.showSnackbar("No internet connection")
+                            ConnectivityObserver.Status.Lost,
+                            -> snackBarHostState.showSnackbar("No internet connection")
                             ConnectivityObserver.Status.Available -> snackBarHostState.showSnackbar("Back online")
                             else -> {}
                         }
-                    } else firstLoad = true
+                    } else {
+                        firstLoad = true
+                    }
                 }
 
                 LaunchedEffect(Unit) {
@@ -61,11 +64,10 @@ class MainActivity : ComponentActivity() {
                     viewModel.requestApi()
                 }
 
-                Box(modifier = Modifier.fillMaxSize())
-                {
+                Box(modifier = Modifier.fillMaxSize()) {
                     NavHost(
                         navController = navController,
-                        startDestination = Route.Home
+                        startDestination = Route.Home,
                     ) {
                         composable<Route.Home> {
                             HomeScreen(
@@ -75,7 +77,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onCardLandPadClick = {
                                     navController.navigate(Route.LandPadsDetail(it))
-                                }
+                                },
                             )
                         }
 
@@ -86,7 +88,7 @@ class MainActivity : ComponentActivity() {
                                 rocket = rocket,
                                 onBackButtonClick = {
                                     navController.navigateUp()
-                                }
+                                },
                             )
                         }
 
@@ -98,20 +100,20 @@ class MainActivity : ComponentActivity() {
                                 landpad = landpad,
                                 onBackButtonClick = {
                                     navController.navigateUp()
-                                }
+                                },
                             )
                         }
                     }
 
                     SnackbarHost(
                         hostState = snackBarHostState,
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .align(Alignment.TopCenter)
-                            .padding(top = 16.dp)
+                            .padding(top = 16.dp),
                     )
                 }
             }
         }
     }
 }
-

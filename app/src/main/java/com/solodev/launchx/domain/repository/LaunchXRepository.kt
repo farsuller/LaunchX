@@ -7,7 +7,9 @@ import com.solodev.launchx.domain.model.Rocket
 import kotlinx.coroutines.flow.Flow
 
 interface LaunchXRepository {
-    suspend fun getRockets() : Flow<RequestState<List<Rocket>>>
-    suspend fun getCrews() : Flow<RequestState<List<Crew>>>
-    suspend fun getLandPads() : Flow<RequestState<List<Landpad>>>
+    suspend fun getRockets(): Flow<RequestState<List<Rocket>>>
+
+    suspend fun getCrews(): Flow<RequestState<List<Crew>>>
+
+    suspend fun getLandPads(): Flow<RequestState<List<Landpad>>>
 }

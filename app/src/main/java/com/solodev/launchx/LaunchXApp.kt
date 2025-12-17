@@ -2,6 +2,7 @@ package com.solodev.launchx
 
 import android.app.Application
 import com.solodev.launchx.di.appModule
+import io.kotzilla.sdk.analytics.koin.analytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -11,6 +12,7 @@ class LaunchXApp : Application() {
 
         startKoin {
             androidContext(this@LaunchXApp) // 👈 THIS IS MANDATORY
+            analytics()
             modules(appModule)
         }
     }

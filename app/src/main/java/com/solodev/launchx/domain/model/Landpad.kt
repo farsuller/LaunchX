@@ -6,19 +6,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Landpad(
     val details: String? = null,
-
     @SerialName("full_name")
     val fullName: String? = null,
-
     val id: String,
     val images: Images? = null,
-
     @SerialName("landing_attempts")
     val landingAttempts: Int? = null,
-
     @SerialName("landing_successes")
     val landingSuccesses: Int? = null,
-
     val latitude: Double? = null,
     val launches: List<String>? = null,
     val locality: String? = null,

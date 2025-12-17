@@ -6,7 +6,7 @@ import com.solodev.launchx.domain.repository.LaunchXRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetRockets(
-    private val repository: LaunchXRepository
+    private val repository: LaunchXRepository,
 ) {
-    suspend operator fun invoke() : Flow<RequestState<List<Rocket>>> = repository.getRockets()
+    suspend operator fun invoke(): Flow<RequestState<List<Rocket>>> = repository.getRockets()
 }

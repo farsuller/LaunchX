@@ -1,11 +1,8 @@
 package com.solodev.launchx
 
 import com.solodev.launchx.data.RequestState
-import com.solodev.launchx.domain.model.Crew
 import com.solodev.launchx.domain.model.Landpad
-import com.solodev.launchx.domain.model.Rocket
 import com.solodev.launchx.domain.repository.LaunchXRepository
-import com.solodev.launchx.domain.usecase.GetCrews
 import com.solodev.launchx.domain.usecase.GetLandPads
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +20,6 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class GetLandPadsTest {
-
     private val fakeRepository = mock<LaunchXRepository>()
     private val testUseCase = GetLandPads(fakeRepository)
 
@@ -36,7 +32,7 @@ class GetLandPadsTest {
     fun `returns success state with crews`() = runTest {
         val fakeData = listOf(Landpad(name = "Land Pad", id = "1"))
         whenever(fakeRepository.getLandPads()).thenReturn(
-            flowOf(RequestState.Success(fakeData))
+            flowOf(RequestState.Success(fakeData)),
         )
 
         val result = testUseCase().first()
